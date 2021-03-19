@@ -70,7 +70,7 @@ async function sendOfflineEvent(path) {
       })
     }
   } catch(error) {
-    console.error("ONLINE EVENT ERROR")
+    console.error("OFFLINE EVENT ERROR")
   }
 }
 
@@ -153,7 +153,7 @@ class SelfObservable extends ReactiveDao.Observable {
     this.disposed = false
     this.clearOfflineEventTimeout()
     this.setOnlineEventTimeout()
-    console.log("PATH", this.patch, "IS ONLINE AGAIN")
+    console.log("PATH", this.path, "IS ONLINE AGAIN")
   }
 }
 
