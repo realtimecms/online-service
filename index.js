@@ -4,9 +4,8 @@ const ReactiveDaoWebsocket = require("@live-change/dao-websocket")
 const ReactiveServer = ReactiveDao.ReactiveServer
 const WebSocketServer = require('websocket').server
 
-const App = require("@live-change/framework")
+const app = require("@live-change/framework").app()
 const validators = require("../validation")
-const app = new App()
 
 const definition = app.createServiceDefinition({
   name: 'online',
