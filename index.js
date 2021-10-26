@@ -20,21 +20,27 @@ async function sendOnlineEvent(path) {
   try {
     if(type == 'object') {
       const group = path[1]
+      const triggerName = `${group}Online`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `${group}Online`,
+        type: triggerName,
         parameters: path.slice(2)
       })
     } else if(type == 'user') {
       const group = path[2]
+      const triggerName = `user${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Online`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `user${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Online`,
+        type: triggerName,
         user: path[1],
         parameters: path.slice(3)
       })
     } else if(type == 'session') {
       const group = path[2]
+      const triggerName = `session${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Online`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `session${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Online`,
+        type: triggerName,
         session: path[1],
         parameters: path.slice(3)
       })
@@ -49,27 +55,33 @@ async function sendOfflineEvent(path) {
   try {
     if(type == 'object') {
       const group = path[1]
+      const triggerName = `${group}Offline`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `${group}Offline`,
+        type: triggerName,
         parameters: path.slice(2)
       })
     } else if(type == 'user') {
       const group = path[2]
+      const triggerName = `user${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Offline`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `user${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Offline`,
+        type: triggerName,
         user: path[1],
         parameters: path.slice(3)
       })
     } else if(type == 'session') {
       const group = path[2]
+      const triggerName = `session${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Offline`
+      console.log("TRIGGER", triggerName)
       await app.trigger({
-        type: `session${group ? group.slice(0, 1).toUpperCase() + group.slice(1) : ''}Offline`,
+        type: triggerName,
         session: path[1],
         parameters: path.slice(3)
       })
     }
   } catch(error) {
-    console.error("ONLINE EVENT ERROR")
+    console.error("OFFLINE EVENT ERROR")
   }
 }
 
@@ -152,7 +164,7 @@ class SelfObservable extends ReactiveDao.Observable {
     this.disposed = false
     this.clearOfflineEventTimeout()
     this.setOnlineEventTimeout()
-    console.log("PATH", this.patch, "IS ONLINE AGAIN")
+    console.log("PATH", this.path, "IS ONLINE AGAIN")
   }
 }
 
