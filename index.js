@@ -4,9 +4,8 @@ const ReactiveDaoWebsocket = require("@live-change/dao-websocket")
 const ReactiveServer = ReactiveDao.ReactiveServer
 const WebSocketServer = require('websocket').server
 
-const App = require("@live-change/framework")
+const app = require("@live-change/framework").app()
 const validators = require("../validation")
-const app = new App()
 
 const definition = app.createServiceDefinition({
   name: 'online',
@@ -189,6 +188,11 @@ const createDao = (clientSessionId) => {
 module.exports = definition
 
 async function start() {
+  if(!app.dao) {
+    await require('@live-change/server').setupApp({})
+    await require('@live-change/elasticsearch-plugin')(app)
+  }
+
   process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason)
   })
